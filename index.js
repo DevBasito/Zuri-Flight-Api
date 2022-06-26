@@ -67,6 +67,52 @@ app.get('/flight/:id', (req, res) => {
 });
 
 
+//Update a Flight
+app.put('/flight/:id', (req, res) => {
+  let id = req.params.id;
+  let FindFlight = models.find((flight) => {
+    return String(flight.id) === id;
+  })
+  console.log(FindFlight);
+  if (FindFlight) {
+    const { title, time, price, date } = req.body
+
+    if (title) {
+      FindFlight.title = title;
+    }
+    if (time) {
+      FindFlight.time = time;
+    }
+    if (price) {
+      FindFlight.price = price;
+    }
+    if (date) {
+      FindFlight.date = date;
+    }
+
+
+    let stringedData = JSON.stringify(models, null, 2);
+
+    fs.writeFile('./models/Flight.json', stringedData, (err) => {
+      if (err) {
+        return res.status(500).json({ message: err })
+      } else {
+        return res.status(200).json({
+          message: "Flight Updated successfully",
+          All_flights: models
+        });
+      }
+    })
+
+
+
+
+  } else {
+    return res.status(500).json({ message: "Flight not Found or Doesn't Exist" })
+  }
+})
+
+
 
 // Delete Flight
 app.delete('/flight/:id', (req, res) => {
@@ -75,9 +121,11 @@ app.delete('/flight/:id', (req, res) => {
     return String(flight.id) === id;
   })
   console.log(FindFlight);
+
   if (FindFlight) {
     models.splice(models.indexOf(FindFlight), 1);
     let stringedData = JSON.stringify(models, null, 2);
+
     fs.writeFile('./models/Flight.json', stringedData, (err) => {
       if (err) {
         return res.status(500).json({ message: err })
