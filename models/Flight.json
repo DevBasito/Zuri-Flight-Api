@@ -1,0 +1,30 @@
+[
+  {
+    "title": "flight to canada",
+    "time": "1pm",
+    "price": 26000,
+    "date": "26-06-2022",
+    "id": "9237d50f-833f-403c-925a-d269ae168def"
+  },
+  {
+    "title": "flight to germany",
+    "time": "4am",
+    "price": 36000,
+    "date": "30-06-2022",
+    "id": "0baf59b7-9b6e-498a-a1b9-726c8e61f0a4"
+  },
+  {
+    "title": "flight to Bulgaria",
+    "time": "9am",
+    "price": 30000,
+    "date": "29-06-2022",
+    "id": "7da813c8-506b-4b8d-b527-abf5e5bc7a97"
+  },
+  {
+    "title": "flight to Romania",
+    "time": "10am",
+    "price": 30000,
+    "date": "29-06-2022",
+    "id": "7da813c8-506b-4b8d-b527-abf5e5bc7a97"
+  }
+]
