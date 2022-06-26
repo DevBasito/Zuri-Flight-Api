@@ -31,7 +31,7 @@ app.post('/flight', (req, res) => {
 
   return res.status(200).json({
     message: "Flight Booked successfully",
-    All_flights: models 
+    All_flights: models
   });
 
 
@@ -45,11 +45,57 @@ app.post('/flight', (req, res) => {
 //   });
 // console.log(models)
 
+
 // Get all Flight
 app.get('/flight', (req, res) => {
   return res.json({ models })
 })
 
+
+// Get a Single Flight with Id
+app.get('/flight/:id', (req, res) => {
+  let id = req.params.id;
+  let FindFlight = models.find((flight) => {
+    return String(flight.id) === id;
+  })
+  console.log(FindFlight);
+  if (FindFlight) {
+    return res.status(200).json({ Flight: FindFlight })
+  } else {
+    return res.status(500).json({ message: "Flight not Found or Doesn't Exist" })
+  }
+});
+
+
+
+// Delete Flight
+app.delete('/flight/:id', (req, res) => {
+  let id = req.params.id;
+  let FindFlight = models.find((flight) => {
+    return String(flight.id) === id;
+  })
+  console.log(FindFlight);
+  if (FindFlight) {
+    models.splice(models.indexOf(FindFlight), 1);
+    let stringedData = JSON.stringify(models, null, 2);
+    fs.writeFile('./models/Flight.json', stringedData, (err) => {
+      if (err) {
+        return res.status(500).json({ message: err })
+      } else {
+        return res.status(200).json({
+          message: "Flight Deleted successfully",
+          All_flights: models
+        });
+      }
+    })
+
+
+
+
+  } else {
+    return res.status(500).json({ message: "Flight not Found or Doesn't Exist" })
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
